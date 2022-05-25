@@ -50,7 +50,14 @@ app.get('/products', (req, res) => {
 app.get('/products/new', (req, res) => {
     res.render('new.ejs');
 });
+
 // Delete
+app.delete('/products/:id', (req, res) => {
+    Product.findByIdAndRemove(req.params.id, (err, data) => {
+        res.redirect('/products')
+    })
+})
+
 // Update
 app.put('/products/:id', (req, res) => {
     Product.findByIdAndUpdate (
@@ -58,7 +65,7 @@ app.put('/products/:id', (req, res) => {
         req.body,
         {new: true},
         (error, updateProduct) => {
-            res.redirect('/products');
+            res.redirect(`/products/${req.params.id}`);
         }
     );
 })
@@ -74,6 +81,8 @@ app.post('/products', (req, res) => {
         res.redirect('/products');
     });
 });
+
+
 // Edit
 app.get('/products/:id/edit', (req, res) => {
     Product.findById(req.params.id, (error, foundProduct) => {

@@ -79,6 +79,7 @@
         <% products.forEach(product => { %>
         <h4><a href="/products/<%=product._id; %>"><img src="<%=product.img %>" ><%=product.name; %></a></h4>
                 <h3>$<%=product.price; %></h3>
+                <a href="/products/<%=product._id%>/edit">Edit</a>
            
 
        <% }) %>
