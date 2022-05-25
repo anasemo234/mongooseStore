@@ -34,7 +34,12 @@ Product.create(productSeed, (error, data) => {
 
 // Index
 app.get('/products', (req, res) => {
-    res.send('new')
+    Product.find({}, (error, allProducts) => {
+        res.render('index.ejs', {
+            products: allProducts,
+        })
+    })
+    
 })
 
 
@@ -45,6 +50,13 @@ app.get('/products', (req, res) => {
 // Create
 // Edit
 // Show
+app.get('/products/:id', (req, res) => {
+    Product.findById(req.params.id, (err, foundProduct) => {
+        res.render('show.ejs', {
+            product: foundProduct,
+        });
+    });
+});
 
 // Listener
 const PORT = process.env.PORT;
