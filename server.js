@@ -1,5 +1,6 @@
 // Dependencies
-const express = require('express')
+const express = require('express');
+const res = require('express/lib/response');
 const app = express();
 require('dotenv').config();
 const mongoose = require('mongoose');
@@ -20,7 +21,30 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 app.use(express.urlencoded({extended: true}))
 
 
+// === SEED DATA === //
+const productSeed = require('./models/productSeed')
+app.get('/products/seed', (req, res) => {
+    Product.deleteMany({}, (error, allProducts) => {});
+Product.create(productSeed, (error, data) => {
+    res.redirect('/products')
+    });
+});
+
 // === ROUTES === //
+
+// Index
+app.get('/products', (req, res) => {
+    res.send('new')
+})
+
+
+
+// New
+// Delete
+// Update
+// Create
+// Edit
+// Show
 
 // Listener
 const PORT = process.env.PORT;
