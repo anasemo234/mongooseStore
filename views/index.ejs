@@ -5,16 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        h1 {
+            text-align: center;
+            font-size: 50px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        img{
+            width: 100px;
+            border: solid black 2px;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 2em;
+        }
+    </style>
 </head>
 <body>
+   
+    <h1>FootyLab</h1>
     <nav>
         <a href="/products/new">Add a New Product</a>
     </nav>
-    <h1>FootyLab</h1>
-    <ul>
+    <div class="container">
+    
         <% products.forEach(product => { %>
-        <li><a href="/products/<%=product._id; %>"><%=product.name; %></a></li>
+        <a href="/products/<%=product._id; %>"><img src="<%=product.img %>" ><%=product.name; %></a>
        <% }) %>
-    </ul>
+    
+</div>
 </body>
 </html>

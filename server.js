@@ -45,9 +45,17 @@ app.get('/products', (req, res) => {
 
 
 // New
+app.get('/products/new', (req, res) => {
+    res.render('new.ejs');
+});
 // Delete
 // Update
 // Create
+app.post('/products', (req, res) => {
+    Product.create(req.body, (error, createdProduct) => {
+        res.redirect('/products');
+    });
+});
 // Edit
 // Show
 app.get('/products/:id', (req, res) => {
