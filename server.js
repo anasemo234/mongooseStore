@@ -8,7 +8,7 @@ const Product = require('./models/products')
 
 // Database connection
 mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
+    // useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
@@ -19,12 +19,14 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 
 // Middleware || Body parser middleware: give us access to req.body
 app.use(express.urlencoded({extended: true}))
+const methodOverride = require('method-override');
+app.use(methodOverride("_method"));
 
 
 // === SEED DATA === //
 const productSeed = require('./models/productSeed')
 app.get('/products/seed', (req, res) => {
-    Product.deleteMany({}, (error, allProducts) => {});
+Product.deleteMany({}, (error, allProducts) => {});
 Product.create(productSeed, (error, data) => {
     res.redirect('/products')
     });
@@ -50,6 +52,22 @@ app.get('/products/new', (req, res) => {
 });
 // Delete
 // Update
+app.put('/products/:id', (req, res) => {
+    Product.findByIdAndUpdate (
+        req.params.id,
+        req.body,
+        {new: true},
+        (error, updateProduct) => {
+            res.redirect('/products');
+        }
+    );
+})
+
+app.get('/products/:id/buy'), (req, res) => {
+
+};
+
+
 // Create
 app.post('/products', (req, res) => {
     Product.create(req.body, (error, createdProduct) => {
@@ -57,6 +75,13 @@ app.post('/products', (req, res) => {
     });
 });
 // Edit
+app.get('/products/:id/edit', (req, res) => {
+    Product.findById(req.params.id, (error, foundProduct) => {
+            res.render('edit.ejs', {
+                product: foundProduct,
+          })
+    })
+})
 // Show
 app.get('/products/:id', (req, res) => {
     Product.findById(req.params.id, (err, foundProduct) => {

@@ -6,11 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        h3{
+            text-align: left;
+        }
         h1 {
             text-align: center;
             font-size: 50px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
+
+      
+
+.bg {
+  animation:slide 3s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, #8FBC8F 50%,  #FFF5EE 50%);
+  bottom:0;
+  left:-50%;
+  opacity:.5;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-1;
+}
+
+.bg2 {
+  animation-direction:alternate-reverse;
+  animation-duration:4s;
+}
+
+.bg3 {
+  animation-duration:5s;
+}
+@keyframes slide {
+  0% {
+    transform:translateX(-25%);
+  }
+  100% {
+    transform:translateX(25%);
+  }
+}
+
+
+
         nav {
             text-align: center;
             margin-bottom: 20px;
@@ -28,16 +65,24 @@
     </style>
 </head>
 <body>
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="gb bg3"></div>
+    <div class="content"></div>
    
     <h1>FootyLab</h1>
     <nav>
         <a href="/products/new">Add a New Product</a>
     </nav>
     <div class="container">
-    
+       
         <% products.forEach(product => { %>
-        <a href="/products/<%=product._id; %>"><img src="<%=product.img %>" ><%=product.name; %></a>
+        <h4><a href="/products/<%=product._id; %>"><img src="<%=product.img %>" ><%=product.name; %></a></h4>
+                <h3>$<%=product.price; %></h3>
+           
+
        <% }) %>
+    
     
 </div>
 </body>

@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body{
+            background-color: #E6E6E9;
+        }
         img {
+            border: solid black 2px;
             width: 300px;
         }
     </style>
@@ -16,10 +20,14 @@
         <a href="/products">Back to Products Page</a>
     </nav>
     <h1><%=product.name %></h1>
-    Description: <%= product.description%>
+    <!-- <h3>Description: <%= product.description%></h3> -->
     <br />
-    <img src="<%=product.img %>">
-    Price: <%= product.price%>
+    <img src="<%=product.img %>"> <br/>
+    <h4>Price: $<%= product.price%></h4>
     Quantity: <%= product.qty%>
+    <h3>Description: <%= product.description%></h3>
+
+
+    <a href="products/<%=product._id %>/buy"><button>Purchase</button></a>
 </body>
 </html>
