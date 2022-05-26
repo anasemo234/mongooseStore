@@ -5,7 +5,7 @@ const app = express();
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Product = require('./models/products')
-
+const productController = require('./controllers/product')
 // Database connection
 mongoose.connect(process.env.DATABASE_URL, {
     // useNewUrlParser: true,
@@ -23,82 +23,8 @@ const methodOverride = require('method-override');
 app.use(methodOverride("_method"));
 
 
-// === SEED DATA === //
-const productSeed = require('./models/productSeed')
-app.get('/products/seed', (req, res) => {
-Product.deleteMany({}, (error, allProducts) => {});
-Product.create(productSeed, (error, data) => {
-    res.redirect('/products')
-    });
-});
-
-// === ROUTES === //
-
-// Index
-app.get('/products', (req, res) => {
-    Product.find({}, (error, allProducts) => {
-        res.render('index.ejs', {
-            products: allProducts,
-        })
-    })
-    
-})
-
-
-
-// New
-app.get('/products/new', (req, res) => {
-    res.render('new.ejs');
-});
-
-// Delete
-app.delete('/products/:id', (req, res) => {
-    Product.findByIdAndRemove(req.params.id, (err, data) => {
-        res.redirect('/products')
-    })
-})
-
-// Update
-app.put('/products/:id', (req, res) => {
-    Product.findByIdAndUpdate (
-        req.params.id,
-        req.body,
-        {new: true},
-        (error, updateProduct) => {
-            res.redirect(`/products/${req.params.id}`);
-        }
-    );
-})
-
-app.get('/products/:id/buy'), (req, res) => {
-
-};
-
-
-// Create
-app.post('/products', (req, res) => {
-    Product.create(req.body, (error, createdProduct) => {
-        res.redirect('/products');
-    });
-});
-
-
-// Edit
-app.get('/products/:id/edit', (req, res) => {
-    Product.findById(req.params.id, (error, foundProduct) => {
-            res.render('edit.ejs', {
-                product: foundProduct,
-          })
-    })
-})
-// Show
-app.get('/products/:id', (req, res) => {
-    Product.findById(req.params.id, (err, foundProduct) => {
-        res.render('show.ejs', {
-            product: foundProduct,
-        });
-    });
-});
+// Controllers - technically just more middleware
+app.use('/product', productController)
 
 // Listener
 const PORT = process.env.PORT;
