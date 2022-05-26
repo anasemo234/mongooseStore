@@ -4,7 +4,7 @@ const router = express.Router();
 
 // === SEED DATA === //
 const productSeed = require('../models/productSeed')
-router.get('/seed', (req, res) => {
+router.get('/products/seed', (req, res) => {
     Product.deleteMany({}, (error, allProducts) => {});
     Product.create(productSeed, (error, data) => {
         res.redirect('/products')
@@ -31,7 +31,7 @@ router.get('/seed', (req, res) => {
     });
     
     // Delete
-    router.delete('/:id', (req, res) => {
+    router.delete('products/:id', (req, res) => {
         Product.findByIdAndRemove(req.params.id, (err, data) => {
             res.redirect('/products')
         })

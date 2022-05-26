@@ -4,7 +4,7 @@ const res = require('express/lib/response');
 const app = express();
 require('dotenv').config();
 const mongoose = require('mongoose');
-const Product = require('./models/products')
+// const Product = require('./models/products')
 const productController = require('./controllers/product')
 // Database connection
 mongoose.connect(process.env.DATABASE_URL, {
@@ -24,7 +24,7 @@ app.use(methodOverride("_method"));
 
 
 // Controllers - technically just more middleware
-app.use('/product', productController)
+app.use('/products', productController)
 
 // Listener
 const PORT = process.env.PORT;
